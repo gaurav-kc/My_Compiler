@@ -1,0 +1,44 @@
+int gaurav;
+int main(int a, int b)
+{
+    int sagar;
+    int a=5,d[20],t=6;
+    char c='a';
+    for(int i=0; i<n; i=i+1)
+    {
+        print("lol please work",5);
+        a = lmao(5,a,t);
+    }
+    check(a>t)yes(print("a is larger"))no(print("t is larger"));
+    int k,e;
+    while(i<t)
+    {
+        k=k+1;
+        t = lmao(5,e);
+    }
+    uint u;
+    if((e<t) and (t<t))
+    {
+        u=u+2;
+        t = lmao(5,4);
+    }
+    char z;
+    if((e<t) or (t<b))
+    {
+        u=u+2;
+        t = lmao(5,4);
+    }else{
+        z=z-1;
+        lelel(8,y+2);
+    }
+}
+int k,z[45];
+int foo(int b, char c)
+{
+    return 0;
+}
+
+int foo(int c)
+{
+    return -1;
+}
