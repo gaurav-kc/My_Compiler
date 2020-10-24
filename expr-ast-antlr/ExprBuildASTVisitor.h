@@ -444,7 +444,7 @@ public:
         //cout<<"In visitArg_decl_dtID"<<flush<<endl;
         string datatype = visit(context->datatype());
         string name = context->IDENTIFIER()->getText();
-        idnode *id = new idnode(name);
+        idnode *id = new idnode(name,datatype);
         arg_declaration *ad = new arg_declaration(datatype, id);
         //cout<<"Out visitArg_decl_dtID"<<flush<<endl;
         return (arg_declaration*)ad;
@@ -595,7 +595,7 @@ public:
         //cout<<"In visitFunc_def_definition"<<flush<<endl;
         string returntype = visit(context->datatype());
         string fnname = context->IDENTIFIER()->getText();
-        idnode* name = new idnode(fnname);
+        idnode* name = new idnode(fnname,"function");
         vector<arg_declaration*> func_args = visit(context->function_args());
         comp_stmnt* body = (comp_stmnt*)visit(context->compound_stmnt());
         fndefnode *fd = new fndefnode(returntype, name, func_args, body);
@@ -607,7 +607,7 @@ public:
     {
         //cout<<"In visitFunc_call_called"<<flush<<endl;
         string fnname = context->IDENTIFIER()->getText();
-        idnode* name = new idnode(fnname);
+        idnode* name = new idnode(fnname,"function");
         vector<exprnode*> arglist = visit(context->idlist());
         fncallnode *fc = new fncallnode(name, arglist);
         //cout<<"Out visitFunc_call_called"<<flush<<endl;

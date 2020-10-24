@@ -107,10 +107,25 @@ public:
         return v.visit(*this, argument);
     }
 };
-
+class exprnode : public stmntnode{
+public:
+    virtual union AnyType* accept(ASTVisitor& v, union AnyType& argument) =0;
+};
+class idnode : public exprnode{
+public:
+    string name;
+    string datatype;
+    idnode(string _name) : name(_name) {}
+    idnode(string _name, string _datatype) : name(_name),datatype(_datatype) {}
+    virtual union AnyType* accept(ASTVisitor& v, union AnyType& argument)
+    {
+        return v.visit(*this, argument);
+    }
+};
 class declaration : public ASTNode{
 public:
     virtual union AnyType* accept(ASTVisitor& v, union AnyType& argument) =0;
+    virtual void setDatatype(string datatype)=0;
 };
 
 class single_decl : public declaration {
@@ -121,6 +136,10 @@ public:
     virtual union AnyType* accept(ASTVisitor& v, union AnyType& argument)
     {
         return v.visit(*this, argument);
+    }
+    virtual void setDatatype(string datatype)
+    {
+        this->name->datatype = datatype;
     }
 };
 
@@ -134,6 +153,10 @@ public:
     virtual union AnyType* accept(ASTVisitor& v, union AnyType& argument)
     {
         return v.visit(*this, argument);
+    }
+    virtual void setDatatype(string datatype)
+    {
+        this->name->datatype = datatype;
     }
 };
 
@@ -259,38 +282,26 @@ public:
     }
 };
 
-class exprnode : public stmntnode{
-public:
-    virtual union AnyType* accept(ASTVisitor& v, union AnyType& argument) =0;
-};
+
 
 
 class constant : public exprnode{
 public:
     string value;
-    string rettype;
-    constant(string _value, string _rettype) : value(_value),rettype(_rettype) {}
+    string datatype;
+    constant(string _value, string _datatype) : value(_value),datatype(_datatype) {}
     virtual union AnyType* accept(ASTVisitor& v, union AnyType& argument)
     {
         return v.visit(*this, argument);
     }
 };
 
-class idnode : public exprnode{
-public:
-    string name;
-    string rettype;
-    idnode(string _name) : name(_name) {}
-    virtual union AnyType* accept(ASTVisitor& v, union AnyType& argument)
-    {
-        return v.visit(*this, argument);
-    }
-};
+
 
 class array1d : public exprnode{
 public:
     string name;
-    string rettype;
+    string datatype;
     array1d(string _name) : name(_name) {}
     virtual union AnyType* accept(ASTVisitor& v, union AnyType& argument)
     {
@@ -301,7 +312,7 @@ public:
 class array2d : public exprnode{
 public:
     string name;
-    string rettype;
+    string datatype;
     array2d(string _name) : name(_name) {}
     virtual union AnyType* accept(ASTVisitor& v, union AnyType& argument)
     {
@@ -312,7 +323,7 @@ public:
 class fncallnode : public exprnode{
 public:
     idnode* name;
-    string rettype;
+    string datatype;
     vector<exprnode*> arglist;
     fncallnode(idnode* _name, vector<exprnode*> _arglist):name(_name),arglist(_arglist) {}
     virtual union AnyType* accept(ASTVisitor& v, union AnyType& argument)
@@ -326,7 +337,7 @@ class una_operator : public exprnode{
 public:
     string operatr;
     exprnode* expr1;
-    string rettype;
+    string datatype;
     una_operator(exprnode* _expr, string _operatr) : expr1(_expr), operatr(_operatr) {}
     virtual union AnyType* accept(ASTVisitor& v, union AnyType& argument)
     {
@@ -339,7 +350,7 @@ public:
     string operatr;
     exprnode* left;
     exprnode* right;
-    string rettype;
+    string datatype;
     bin_operator(exprnode *_left, exprnode *_right, string _operatr) : left(_left), right(_right), operatr(_operatr) {}
     virtual union AnyType* accept(ASTVisitor& v, union AnyType& argument)
     {

@@ -34,7 +34,10 @@ public:
         for(auto decs : node.pardec)
         {
             if( decs != nullptr)
+            {
+                decs->setDatatype(node.datatype);
                 decs->accept(*this, argument);
+            }
         }
     }
     virtual union AnyType* visit(localparamlist& node, union AnyType& argument)
@@ -44,7 +47,10 @@ public:
         for(auto decs : node.pardec)
         {
             if( decs != nullptr)
+            {
+                decs->setDatatype(node.datatype);
                 decs->accept(*this, argument);
+            }
         }
     }
     virtual union AnyType* visit(declaration& node, union AnyType& argument)
@@ -55,7 +61,7 @@ public:
     virtual union AnyType* visit(single_decl& node, union AnyType& argument)
     {
         cout<<"This is a single_decl node"<<endl;
-        cout<<"Name of var is "<<node.name->name<<endl;
+        cout<<"Name of var is "<<node.name->name<<" and datatype is "<<node.name->datatype<<endl;
         if(node.init == (exprnode*)nullptr)
         {
             cout<<"It is not initializd"<<endl;
@@ -67,7 +73,7 @@ public:
     virtual union AnyType* visit(array_decl& node, union AnyType& argument)
     {
         cout<<"This is a array_decl node"<<endl;
-        cout<<"Name of array is "<<node.name->name<<endl;
+        cout<<"Name of array is "<<node.name->name<<" and datatype is "<<node.name->datatype<<endl;
         if(node.size2 == (exprnode*)nullptr)
         {
             cout<<"It is 1d array"<<endl;
@@ -191,6 +197,7 @@ public:
     {
         cout<<"This is a constant node"<<endl;
         cout<<"constant is "<<node.value<<endl;
+        cout<<"constant type is "<<node.datatype<<endl;
     }
     virtual union AnyType* visit(idnode& node, union AnyType& argument)
     {

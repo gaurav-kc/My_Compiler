@@ -35,6 +35,7 @@ int main(int argc, const char* argv[]) {
     tp->visit(*program_root,a);
     JSONCreater *js = new JSONCreater();
     AnyType anyt;
+    anyt.n = -1;
     json j;
     j = *(json*)js->visit(*program_root, anyt)->node;
     cout<<j<<flush<<endl;

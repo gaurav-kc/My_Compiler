@@ -1,0 +1,116 @@
+{
+    "start": [
+        {
+            "globallist": [
+                {
+                    "datatype": "int",
+                    "initialization": "NULL",
+                    "type": "single_declaration",
+                    "var_name": "gaurav"
+                }
+            ],
+            "type": "global_paramlist"
+        },
+        {
+            "arg_list": [
+                {
+                    "arg_name": "a",
+                    "arg_type": "int"
+                },
+                {
+                    "arg_name": "b",
+                    "arg_type": "int"
+                }
+            ],
+            "body": {
+                "body": [
+                    {
+                        "locallist": [
+                            {
+                                "datatype": "int",
+                                "initialization": "NULL",
+                                "type": "single_declaration",
+                                "var_name": "sagar"
+                            },
+                            {
+                                "datatype": "int",
+                                "initialization": "NULL",
+                                "type": "single_declaration",
+                                "var_name": "milind"
+                            }
+                        ]
+                    },
+                    {
+                        "body": {
+                            "body": [
+                                {
+                                    "args": [
+                                        {
+                                            "datatype": "string",
+                                            "type": "constant",
+                                            "value": "\"lol\""
+                                        }
+                                    ],
+                                    "type": "func_call"
+                                }
+                            ],
+                            "type": "compound_statement"
+                        },
+                        "change": {
+                            "left_value": {
+                                "idname": "i",
+                                "type": "identifer"
+                            },
+                            "operator": "=",
+                            "right_value": {
+                                "left_value": {
+                                    "idname": "i",
+                                    "type": "identifer"
+                                },
+                                "operator": "+",
+                                "right_value": {
+                                    "datatype": "numeric",
+                                    "type": "constant",
+                                    "value": "1"
+                                },
+                                "type": "binary_op"
+                            },
+                            "type": "binary_op"
+                        },
+                        "initialization": {
+                            "locallist": [
+                                {
+                                    "datatype": "int",
+                                    "initialization": {
+                                        "datatype": "numeric",
+                                        "type": "constant",
+                                        "value": "0"
+                                    },
+                                    "type": "single_declaration",
+                                    "var_name": "i"
+                                }
+                            ]
+                        },
+                        "testing": {
+                            "left_value": {
+                                "idname": "i",
+                                "type": "identifer"
+                            },
+                            "operator": "<",
+                            "right_value": {
+                                "idname": "n",
+                                "type": "identifer"
+                            },
+                            "type": "binary_op"
+                        },
+                        "type": "for_loop"
+                    }
+                ],
+                "type": "compound_statement"
+            },
+            "func_name": "main",
+            "return_type": "int",
+            "type": "function_definition"
+        }
+    ]
+}

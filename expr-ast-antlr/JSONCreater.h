@@ -81,6 +81,7 @@ public:
         cout<<"Name of var is "<<node.name->name<<endl;
         json *j1 = new json;
         (*j1)["var_name"] = node.name->name;
+        (*j1)["datatype"] = node.name->datatype;
         if(node.init == (exprnode*)nullptr)
         {
             cout<<"It is not initializd"<<endl;
@@ -100,6 +101,7 @@ public:
         cout<<"Name of array is "<<node.name->name<<endl;
         json *j1 = new json;
         (*j1)["array_name"] = node.name->name;
+        (*j1)["datatype"] = node.name->datatype;
         if(node.size2 == (exprnode*)nullptr)
         {
             cout<<"It is 1d array"<<endl;
@@ -296,6 +298,7 @@ public:
         cout<<"constant is "<<node.value<<endl;
         json *j1 = new json;
         (*j1)["value"] = node.value;
+        (*j1)["datatype"] = node.datatype;
         (*j1)["type"] = "constant";
         AnyType *anyt = new AnyType;
         anyt->node = j1;
