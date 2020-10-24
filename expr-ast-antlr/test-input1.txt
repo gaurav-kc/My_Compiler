@@ -2,6 +2,7 @@ int gaurav;
 int main(int a, int b)
 {
     int sagar,milind;
+    char n;
     for(int i=0; i<n; i=i+1)
     {
         print("lol");

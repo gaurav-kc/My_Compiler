@@ -34,10 +34,7 @@ public:
         for(auto decs : node.pardec)
         {
             if( decs != nullptr)
-            {
-                decs->setDatatype(node.datatype);
                 decs->accept(*this, argument);
-            }
         }
     }
     virtual union AnyType* visit(localparamlist& node, union AnyType& argument)
@@ -47,10 +44,7 @@ public:
         for(auto decs : node.pardec)
         {
             if( decs != nullptr)
-            {
-                decs->setDatatype(node.datatype);
                 decs->accept(*this, argument);
-            }
         }
     }
     virtual union AnyType* visit(declaration& node, union AnyType& argument)

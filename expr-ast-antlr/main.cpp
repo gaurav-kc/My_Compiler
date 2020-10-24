@@ -6,6 +6,7 @@
 #include "ExprLexer.cpp"
 #include "ExprParser.cpp"
 #include "ExprBuildASTVisitor.h"
+#include  "Symbol_Manager.h"
 #include "TreeTraversal.h"
 #include "JSONCreater.h"
 using namespace std;
@@ -29,16 +30,27 @@ int main(int argc, const char* argv[]) {
     startnode *program_root = nullptr;
     // start *program_root = visitor->visitStart(ctx);
     program_root = (startnode*)visitor->visitStart(ctx);
-    TraversalPrinter *tp = new TraversalPrinter();
     AnyType a;
-    a.n = 5;
-    tp->visit(*program_root,a);
-    JSONCreater *js = new JSONCreater();
-    AnyType anyt;
-    anyt.n = -1;
-    json j;
-    j = *(json*)js->visit(*program_root, anyt)->node;
-    cout<<j<<flush<<endl;
-    js->createfile(j);
+    a.n = -1;
+    Symbol_Manager *sm = new Symbol_Manager();
+    sm->visit(*program_root,a);
+    int errorsize = sm->error_report.size();
+    if(errorsize == 0)
+    {
+        // TraversalPrinter *tp = new TraversalPrinter();
+        // tp->visit(*program_root,a);
+        JSONCreater *js = new JSONCreater();
+        json j;
+        j = *(json*)js->visit(*program_root, a)->node;
+        // cout<<j<<flush<<endl;        //this line is to print json in terminal
+        js->createfile(j);
+        cout<<"check output.json"<<endl;
+    }else{
+        cout<<"Errors detected"<<endl;
+        for(auto it = sm->error_report.begin(); it != sm->error_report.end(); ++it)
+        {
+            cout<<*it<<endl;
+        }
+    }
     return 0;
 }

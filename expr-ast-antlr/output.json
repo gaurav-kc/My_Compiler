@@ -41,6 +41,16 @@
                         ]
                     },
                     {
+                        "locallist": [
+                            {
+                                "datatype": "char",
+                                "initialization": "NULL",
+                                "type": "single_declaration",
+                                "var_name": "n"
+                            }
+                        ]
+                    },
+                    {
                         "body": {
                             "body": [
                                 {
@@ -58,18 +68,20 @@
                         },
                         "change": {
                             "left_value": {
+                                "datatype": "int",
                                 "idname": "i",
                                 "type": "identifer"
                             },
                             "operator": "=",
                             "right_value": {
                                 "left_value": {
+                                    "datatype": "int",
                                     "idname": "i",
                                     "type": "identifer"
                                 },
                                 "operator": "+",
                                 "right_value": {
-                                    "datatype": "numeric",
+                                    "datatype": "int",
                                     "type": "constant",
                                     "value": "1"
                                 },
@@ -82,7 +94,7 @@
                                 {
                                     "datatype": "int",
                                     "initialization": {
-                                        "datatype": "numeric",
+                                        "datatype": "int",
                                         "type": "constant",
                                         "value": "0"
                                     },
@@ -93,11 +105,13 @@
                         },
                         "testing": {
                             "left_value": {
+                                "datatype": "int",
                                 "idname": "i",
                                 "type": "identifer"
                             },
                             "operator": "<",
                             "right_value": {
+                                "datatype": "char",
                                 "idname": "n",
                                 "type": "identifer"
                             },

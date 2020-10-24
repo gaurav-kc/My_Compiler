@@ -58,7 +58,7 @@ public:
     virtual antlrcpp::Any visitExpression_NUMBER_tag(ExprParser::Expression_NUMBER_tagContext *context)
     {
         ////cout<<"In visitExpression_NUMBER_tag"<<flush<<endl;
-        constant *c = new constant(context->NUMBER()->getText(),"numeric");
+        constant *c = new constant(context->NUMBER()->getText(),"int");
         ////cout<<"Out visitExpression_NUMBER_tag"<<flush<<endl;
         return (exprnode*)c;
     }
