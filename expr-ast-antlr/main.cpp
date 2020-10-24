@@ -1,11 +1,13 @@
 #include <iostream>
+#include <cstdio>
+#include "json.hpp"
 
 #include "antlr4-runtime.h"
 #include "ExprLexer.cpp"
 #include "ExprParser.cpp"
 #include "ExprBuildASTVisitor.h"
-
-#include "PostfixVisitor.h"
+#include "TreeTraversal.h"
+#include "JSONCreater.h"
 using namespace std;
 using namespace antlr4;
 
@@ -27,13 +29,15 @@ int main(int argc, const char* argv[]) {
     startnode *program_root = nullptr;
     // start *program_root = visitor->visitStart(ctx);
     program_root = (startnode*)visitor->visitStart(ctx);
-    informationPrinter *pv = new informationPrinter();
-    pv->visit(*program_root);
-    cout<<endl<<endl<<endl;
-    cout<<"Following errors were detected "<<endl<<endl;
-    for(auto error : pv->errorreport)
-    {
-        cout<<error<<endl;
-    }
+    TraversalPrinter *tp = new TraversalPrinter();
+    AnyType a;
+    a.n = 5;
+    tp->visit(*program_root,a);
+    JSONCreater *js = new JSONCreater();
+    AnyType anyt;
+    json j;
+    j = *(json*)js->visit(*program_root, anyt)->node;
+    cout<<j<<flush<<endl;
+    js->createfile(j);
     return 0;
 }
