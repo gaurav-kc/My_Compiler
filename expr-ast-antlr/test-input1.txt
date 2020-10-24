@@ -2,9 +2,9 @@ int gaurav;
 int main(int a, int b)
 {
     int i,j;
-    char n;
-    if(i<j)
+    char n='a';
+    if((i<j) and (j==i))
     {
-        int k = n;
+        char k = n;
     }
 }

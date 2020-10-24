@@ -82,6 +82,11 @@ public:
             node.init->accept(*this, argument);
             string initdt = node.init->getDatatype();
             cout<<"initdt = "<<initdt<<" datatype = "<<datatype<<endl;
+            if(initdt != datatype)
+            {
+                string error = "Cannot assign " + initdt + " to " + datatype;
+                error_report.push_back(error);
+            }
         }
     }
     virtual union AnyType* visit(array_decl& node, union AnyType& argument)
@@ -104,6 +109,11 @@ public:
             node.size1->accept(*this, argument);
             string arraysize1 = node.size1->getDatatype();
             cout<<"arraysize1 = "<<arraysize1<<endl;
+            if(arraysize1 != "int")
+            {
+                string error = "Array sizes can be integers only. Wrong size type given for " + varname;
+                error_report.push_back(error);
+            }
         }else{
             //cout<<"It is 2d array"<<endl;
             node.size1->accept(*this, argument);
@@ -112,6 +122,11 @@ public:
             cout<<"arraysize1 = "<<arraysize1<<endl;
             string arraysize2 = node.size1->getDatatype();
             cout<<"arraysize2 = "<<arraysize2<<endl;
+            if((arraysize1 != "int") || (arraysize2 != "int"))
+            {
+                string error = "Array sizes can be integers only. Wrong size type given for " + varname;
+                error_report.push_back(error);
+            }
         }
     }
     virtual union AnyType* visit(fndefnode& node, union AnyType& argument)
@@ -178,6 +193,12 @@ public:
         //cout<<"inits end"<<endl;
         //cout<<"Test begin"<<endl;
         node.test->accept(*this, argument);
+        string testdt = node.test->getDatatype();
+        if(testdt != "bool")
+        {
+            string error = "Testing condition in for loop should be boolean only.";
+            error_report.push_back(error);
+        }
         //cout<<"Test ends"<<endl;
         //cout<<"inc dec begins "<<endl;
         node.incdec->accept(*this, argument);
@@ -191,6 +212,12 @@ public:
         //cout<<"This is a whileloop node"<<endl;
         //cout<<"test begins"<<endl;
         node.test->accept(*this, argument);
+        string testdt = node.test->getDatatype();
+        if(testdt != "bool")
+        {
+            string error = "Testing condition in while loop should be boolean only.";
+            error_report.push_back(error);
+        }
         //cout<<"test ends"<<endl;
         //cout<<"Body begins"<<endl;
         node.body->accept(*this, argument);
@@ -201,6 +228,12 @@ public:
         //cout<<"This is a ifwoelse node"<<endl;
         //cout<<"test begins"<<endl;
         node.test->accept(*this, argument);
+        string testdt = node.test->getDatatype();
+        if(testdt != "bool")
+        {
+            string error = "Testing condition in if should be boolean only.";
+            error_report.push_back(error);
+        }
         //cout<<"test ends"<<endl;
         //cout<<"Body begins"<<endl;
         node.body->accept(*this, argument);
@@ -211,6 +244,12 @@ public:
         //cout<<"This is a ifwithelse node"<<endl;
         //cout<<"test begins"<<endl;
         node.test->accept(*this, argument);
+        string testdt = node.test->getDatatype();
+        if(testdt != "bool")
+        {
+            string error = "Testing condition in if should be boolean only.";
+            error_report.push_back(error);
+        }
         //cout<<"test ends"<<endl;
         //cout<<"Body1 begins"<<endl;
         node.body1->accept(*this, argument);
@@ -291,6 +330,26 @@ public:
         //cout<<"op1 starts"<<endl;
         node.expr1->accept(*this, argument);
         node.setDatatype(node.expr1->getDatatype());
+        if(node.operatr == "!")
+        {
+            if((node.getDatatype() != "int") && (node.getDatatype() != "bool"))
+            {
+                string error = "operation " + node.operatr + " is defined only for integer and boolean";
+                error_report.push_back(error);
+            }else{
+                node.setDatatype(node.getDatatype());
+            }
+        }
+        if(node.operatr == "-")
+        {
+            if(node.getDatatype() != "int")
+            {
+                string error = "operation " + node.operatr + " is defined only for integer";
+                error_report.push_back(error);
+            }else{
+                node.setDatatype(node.getDatatype());
+            }
+        }
         //cout<<"op1 ends"<<endl;
     }
     virtual union AnyType* visit(bin_operator& node, union AnyType& argument)
@@ -306,7 +365,65 @@ public:
         string rightdt = node.right->getDatatype();
         cout<<"In binary operator "<<node.operatr<<endl;
         cout<<"left : "<<leftdt<<" right : "<<rightdt<<endl;
-        node.setDatatype(leftdt);
+        string binoperatr = node.operatr;
+        if((binoperatr == "+") || (binoperatr == "-") || (binoperatr == "*") || (binoperatr == "/"))
+        {
+            if((leftdt != "int") || (rightdt != "int"))
+            {
+                string error = "Both left and right should be integers to perform "+binoperatr;
+                error += ". Observed types : left = " + leftdt + " and right = " + rightdt;
+                error_report.push_back(error);
+            }else{
+                node.setDatatype("int");
+            }
+        }
+        if((binoperatr == "<=") || (binoperatr == "<") || (binoperatr == ">=") || (binoperatr == ">") || (binoperatr == "==") || (binoperatr == "!="))
+        {
+            if((leftdt != rightdt))
+            {
+                string error = "Both left and right should be of same type to perform " + binoperatr;
+                error += ". Observed types : left = " + leftdt + " and right = " + rightdt;
+                error_report.push_back(error);
+            }else{
+                if((leftdt != "int") && (leftdt != "bool") && (leftdt != "char"))
+                {
+                    string error = "Both left and right should be integers or characters or boolean to perform "+binoperatr;
+                    error += ". Observed types : left = " + leftdt + " and right = " + rightdt;
+                    error_report.push_back(error);
+                }else{
+                    node.setDatatype("bool");
+                }
+            }
+        }
+        if((binoperatr == "and") || (binoperatr == "or"))
+        {
+            if((leftdt != rightdt))
+            {
+                string error = "Both left and right should be of same type to perform " + binoperatr;
+                error += ". Observed types : left = " + leftdt + " and right = " + rightdt;
+                error_report.push_back(error);
+            }else{
+                if(leftdt != "bool")
+                {
+                    string error = "Both left and right should be boolean to perform "+binoperatr;
+                    error += ". Observed types : left = " + leftdt + " and right = " + rightdt;
+                    error_report.push_back(error);
+                }else{
+                    node.setDatatype("bool");
+                }
+            }
+        }
+        if(binoperatr == "=")
+        {
+            if((leftdt != rightdt))
+            {
+                string error = "Both left and right should be of same type to perform " + binoperatr;
+                error += ". Observed types : left = " + leftdt + " and right = " + rightdt;
+                error_report.push_back(error);
+            }else{
+                node.setDatatype(leftdt);
+            }
+        }
         //cout<<"op2 ends"<<endl;
     }
     virtual union AnyType* visit(ter_operator& node, union AnyType& argument)

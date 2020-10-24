@@ -393,7 +393,7 @@ public:
     {
         //cout<<"In visitDatatype_uint"<<flush<<endl;
         //cout<<"Out visitDatatype_uint"<<flush<<endl;
-        string s = "uint";
+        string s = "int";
         return s;
     }
 

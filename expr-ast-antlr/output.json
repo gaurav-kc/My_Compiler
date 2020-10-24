@@ -44,7 +44,11 @@
                         "locallist": [
                             {
                                 "datatype": "char",
-                                "initialization": "NULL",
+                                "initialization": {
+                                    "datatype": "char",
+                                    "type": "constant",
+                                    "value": "'a'"
+                                },
                                 "type": "single_declaration",
                                 "var_name": "n"
                             }
@@ -56,7 +60,7 @@
                                 {
                                     "locallist": [
                                         {
-                                            "datatype": "int",
+                                            "datatype": "char",
                                             "initialization": {
                                                 "datatype": "char",
                                                 "idname": "n",
@@ -72,15 +76,33 @@
                         },
                         "testing": {
                             "left_value": {
-                                "datatype": "int",
-                                "idname": "i",
-                                "type": "identifer"
+                                "left_value": {
+                                    "datatype": "int",
+                                    "idname": "i",
+                                    "type": "identifer"
+                                },
+                                "operator": "<",
+                                "right_value": {
+                                    "datatype": "int",
+                                    "idname": "j",
+                                    "type": "identifer"
+                                },
+                                "type": "binary_op"
                             },
-                            "operator": "<",
+                            "operator": "and",
                             "right_value": {
-                                "datatype": "int",
-                                "idname": "j",
-                                "type": "identifer"
+                                "left_value": {
+                                    "datatype": "int",
+                                    "idname": "j",
+                                    "type": "identifer"
+                                },
+                                "operator": "==",
+                                "right_value": {
+                                    "datatype": "int",
+                                    "idname": "i",
+                                    "type": "identifer"
+                                },
+                                "type": "binary_op"
                             },
                             "type": "binary_op"
                         },

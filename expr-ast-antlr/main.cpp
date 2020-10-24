@@ -46,7 +46,7 @@ int main(int argc, const char* argv[]) {
         js->createfile(j);
         cout<<"check output.json"<<endl;
     }else{
-        cout<<"Errors detected"<<endl;
+        cout<<endl<<endl<<endl<<"Errors detected"<<endl;
         for(auto it = sm->error_report.begin(); it != sm->error_report.end(); ++it)
         {
             cout<<*it<<endl;
