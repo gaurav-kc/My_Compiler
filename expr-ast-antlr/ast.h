@@ -110,6 +110,8 @@ public:
 class exprnode : public stmntnode{
 public:
     virtual union AnyType* accept(ASTVisitor& v, union AnyType& argument) =0;
+    virtual string getDatatype()=0;
+    virtual void setDatatype(string _datatype)=0;
 };
 class idnode : public exprnode{
 public:
@@ -120,6 +122,14 @@ public:
     virtual union AnyType* accept(ASTVisitor& v, union AnyType& argument)
     {
         return v.visit(*this, argument);
+    }
+    virtual string getDatatype()
+    {
+        return datatype;
+    }
+    virtual void setDatatype(string _datatype)
+    {
+        datatype = _datatype;
     }
 };
 class declaration : public ASTNode{
@@ -294,6 +304,15 @@ public:
     {
         return v.visit(*this, argument);
     }
+    virtual string getDatatype()
+    {
+        return datatype;
+    }
+    virtual void setDatatype(string _datatype)
+    {
+        datatype = _datatype;
+    }
+
 };
 
 
@@ -307,6 +326,15 @@ public:
     {
         return v.visit(*this, argument);
     }
+    virtual string getDatatype()
+    {
+        return datatype;
+    }
+    virtual void setDatatype(string _datatype)
+    {
+        datatype = _datatype;
+    }
+
 };
 
 class array2d : public exprnode{
@@ -318,6 +346,15 @@ public:
     {
         return v.visit(*this, argument);
     }
+    virtual string getDatatype()
+    {
+        return datatype;
+    }
+    virtual void setDatatype(string _datatype)
+    {
+        datatype = _datatype;
+    }
+
 };
 
 class fncallnode : public exprnode{
@@ -330,6 +367,15 @@ public:
     {
         return v.visit(*this, argument);
     }
+    virtual string getDatatype()
+    {
+        return datatype;
+    }
+    virtual void setDatatype(string _datatype)
+    {
+        datatype = _datatype;
+    }
+
 };
 
 
@@ -343,6 +389,15 @@ public:
     {
         return v.visit(*this, argument);
     }
+    virtual string getDatatype()
+    {
+        return datatype;
+    }
+    virtual void setDatatype(string _datatype)
+    {
+        datatype = _datatype;
+    }
+
 };
 
 class bin_operator : public exprnode{
@@ -356,6 +411,15 @@ public:
     {
         return v.visit(*this, argument);
     }
+    virtual string getDatatype()
+    {
+        return datatype;
+    }
+    virtual void setDatatype(string _datatype)
+    {
+        datatype = _datatype;
+    }
+
 };
 
 class ter_operator : public stmntnode{

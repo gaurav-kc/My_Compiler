@@ -30,13 +30,13 @@
                                 "datatype": "int",
                                 "initialization": "NULL",
                                 "type": "single_declaration",
-                                "var_name": "sagar"
+                                "var_name": "i"
                             },
                             {
                                 "datatype": "int",
                                 "initialization": "NULL",
                                 "type": "single_declaration",
-                                "var_name": "milind"
+                                "var_name": "j"
                             }
                         ]
                     },
@@ -54,54 +54,21 @@
                         "body": {
                             "body": [
                                 {
-                                    "args": [
+                                    "locallist": [
                                         {
-                                            "datatype": "string",
-                                            "type": "constant",
-                                            "value": "\"lol\""
+                                            "datatype": "int",
+                                            "initialization": {
+                                                "datatype": "char",
+                                                "idname": "n",
+                                                "type": "identifer"
+                                            },
+                                            "type": "single_declaration",
+                                            "var_name": "k"
                                         }
-                                    ],
-                                    "type": "func_call"
+                                    ]
                                 }
                             ],
                             "type": "compound_statement"
-                        },
-                        "change": {
-                            "left_value": {
-                                "datatype": "int",
-                                "idname": "i",
-                                "type": "identifer"
-                            },
-                            "operator": "=",
-                            "right_value": {
-                                "left_value": {
-                                    "datatype": "int",
-                                    "idname": "i",
-                                    "type": "identifer"
-                                },
-                                "operator": "+",
-                                "right_value": {
-                                    "datatype": "int",
-                                    "type": "constant",
-                                    "value": "1"
-                                },
-                                "type": "binary_op"
-                            },
-                            "type": "binary_op"
-                        },
-                        "initialization": {
-                            "locallist": [
-                                {
-                                    "datatype": "int",
-                                    "initialization": {
-                                        "datatype": "int",
-                                        "type": "constant",
-                                        "value": "0"
-                                    },
-                                    "type": "single_declaration",
-                                    "var_name": "i"
-                                }
-                            ]
                         },
                         "testing": {
                             "left_value": {
@@ -111,13 +78,13 @@
                             },
                             "operator": "<",
                             "right_value": {
-                                "datatype": "char",
-                                "idname": "n",
+                                "datatype": "int",
+                                "idname": "j",
                                 "type": "identifer"
                             },
                             "type": "binary_op"
                         },
-                        "type": "for_loop"
+                        "type": "if_without_else"
                     }
                 ],
                 "type": "compound_statement"

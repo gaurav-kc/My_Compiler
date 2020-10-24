@@ -80,6 +80,8 @@ public:
         }else{
             //cout<<"It is initialized "<<endl;
             node.init->accept(*this, argument);
+            string initdt = node.init->getDatatype();
+            cout<<"initdt = "<<initdt<<" datatype = "<<datatype<<endl;
         }
     }
     virtual union AnyType* visit(array_decl& node, union AnyType& argument)
@@ -100,10 +102,16 @@ public:
         {
             //cout<<"It is 1d array"<<endl;
             node.size1->accept(*this, argument);
+            string arraysize1 = node.size1->getDatatype();
+            cout<<"arraysize1 = "<<arraysize1<<endl;
         }else{
             //cout<<"It is 2d array"<<endl;
             node.size1->accept(*this, argument);
             node.size2->accept(*this, argument);
+            string arraysize1 = node.size1->getDatatype();
+            cout<<"arraysize1 = "<<arraysize1<<endl;
+            string arraysize2 = node.size1->getDatatype();
+            cout<<"arraysize2 = "<<arraysize2<<endl;
         }
     }
     virtual union AnyType* visit(fndefnode& node, union AnyType& argument)
@@ -112,10 +120,11 @@ public:
         //cout<<"Return type "<<node.returntype<<endl;
         //cout<<"Fn name is "<<node.name->name<<endl;
         string fnname = node.name->name;
+        string rettype = node.returntype;
         auto it = symbols.find(fnname);
         if(it == symbols.end())
         {   
-            symbols[fnname] = "function";
+            symbols[fnname] = rettype;
         }else{
             string error = "Duplicate variable " + fnname + " found";
             error_report.push_back(error);
@@ -281,6 +290,7 @@ public:
         //cout<<"type "<<node.operatr<<endl;
         //cout<<"op1 starts"<<endl;
         node.expr1->accept(*this, argument);
+        node.setDatatype(node.expr1->getDatatype());
         //cout<<"op1 ends"<<endl;
     }
     virtual union AnyType* visit(bin_operator& node, union AnyType& argument)
@@ -292,6 +302,11 @@ public:
         //cout<<"op1 ends"<<endl;
         //cout<<"op2 starts"<<endl;
         node.right->accept(*this, argument);
+        string leftdt = node.left->getDatatype();
+        string rightdt = node.right->getDatatype();
+        cout<<"In binary operator "<<node.operatr<<endl;
+        cout<<"left : "<<leftdt<<" right : "<<rightdt<<endl;
+        node.setDatatype(leftdt);
         //cout<<"op2 ends"<<endl;
     }
     virtual union AnyType* visit(ter_operator& node, union AnyType& argument)
